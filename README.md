@@ -1,3 +1,11 @@
+**Just keeping this great integration for personal use.**
+- Unfortunately the original author decided to mark it as deprecated and set it to archive/read only mode.
+- Anyway, it still can be used adding this repository as custom repository in HACS.
+- Let's hope it will continue to work as long as possible: only perfect and final solution would be someone integrating it into core. 
+
+Original readme below the following line.
+______________________
+
 At this point this integtration is considered deprecated.
 
 Parts of it can probably be added to core by someone, if its usefull.
