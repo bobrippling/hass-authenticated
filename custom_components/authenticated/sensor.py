@@ -114,7 +114,6 @@ class AuthenticatedSensor(Entity):
             _LOGGER.debug("File has not been created, no data pressent.")
 
         for access in tokens:
-
             try:
                 ValidateIP(access)
             except ValueError:
