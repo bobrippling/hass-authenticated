@@ -238,6 +238,8 @@ class AuthenticatedSensor(Entity):
         return "mdi:lock-alert"
 
     @property
+    # Removed 2022-05-31 (see https://github.com/custom-components/authenticated/issues/86 + https://github.com/custom-components/authenticated/pull/77/files) and added next line instead
+    # def device_state_attributes(self):
     def extra_state_attributes(self):
         """Return attributes for the sensor."""
         if self.last_ip is None:
