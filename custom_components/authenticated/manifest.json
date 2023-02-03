@@ -6,6 +6,7 @@
   "documentation": "https://github.com/jine/hass-authenticated",
   "issue_tracker": "https://github.com/jine/hass-authenticated/issues",
   "codeowners": [
+    "@ludeeus",
     "@jine"
   ]
 }
