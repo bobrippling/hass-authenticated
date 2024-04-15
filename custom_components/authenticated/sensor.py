@@ -408,42 +408,24 @@ class IPData:
 
     def notify(self, hass):
         """Create persistant notification."""
-        notify = hass.components.persistent_notification.create
-        if self.country is not None:
-            country = "**Country:**   {}".format(self.country)
-        else:
-            country = ""
-        if self.hostname is not None:
-            hostname = "**Hostname:**   {}".format(self.hostname)
-        else:
-            hostname = ""
-        if self.region is not None:
-            region = "**Region:**   {}".format(self.region)
-        else:
-            region = ""
-        if self.city is not None:
-            city = "**City:**   {}".format(self.city)
-        else:
-            city = ""
+
+        last_used_at = ""
         if self.last_used_at is not None:
-            last_used_at = "**Login time:**   {}".format(self.last_used_at[:19])
-        else:
-            last_used_at = ""
-        message = """
-        **IP Address:**   {}
-        **Username:**    {}
-        {}
-        {}
-        {}
-        {}
-        {}
-        """.format(
-            self.ip_address,
-            self.username,
-            country,
-            hostname,
-            region,
-            city,
-            last_used_at.replace("T", " "),
+            last_used_at = self.last_used_at[:19].replace('T', ' ')
+
+        fmt = lambda x: "" if x is None else x
+
+        message = "\n".join([
+            f"{self.username} from {self.ip_address}",
+            f"hostname={fmt(self.hostname)}",
+            f"country={fmt(self.country)}",
+            f"region={fmt(self.region)}",
+            f"city={fmt(self.city)}",
+            f"last_used={last_used_at}",
+        ])
+
+        hass.components.persistent_notification.create(
+            message,
+            title="New successful login",
+            notification_id=self.ip_address
         )
-        notify(message, title="New successful login", notification_id=self.ip_address)
