@@ -461,23 +461,24 @@ class IPData:
     def notify(self, hass):
         """Create persistant notification."""
         notify = persistent_notification.create
-        message = f"""
-        **IP Address:**   {self.ip_address}
-        **Username:**    {self.username}
-        """
 
-        for notify_val, notify_str in [
-            (self.country, "Country"),
-            (self.hostname, "Hostname"),
-            (self.region, "Region"),
-            (self.city, "City"),
-            (self.asn, "ASN"),
-            (self.org, "Organisation"),
-        ]:
-            if notify_val is not None:
-                message += f"**{notify_str}:**  {notify_val}\n"
-
+        last_used_at = ""
         if self.last_used_at is not None:
-            message += f"**Login time:**   {self.last_used_at[:19].replace('T', ' ')}"
+            last_used_at = self.last_used_at[:19].replace('T', ' ')
 
-        notify(message, title="New successful login", notification_id=self.ip_address)
+        fmt = lambda x: "" if x is None else x
+
+        message = "\n".join([
+            f"{self.username} from {self.ip_address}",
+            f"hostname={fmt(self.hostname)}",
+            f"country={fmt(self.country)}",
+            f"region={fmt(self.region)}",
+            f"city={fmt(self.city)}",
+            f"last_used={last_used_at}",
+        ])
+
+        notify(
+            message,
+            title="New successful login",
+            notification_id=self.ip_address
+        )
