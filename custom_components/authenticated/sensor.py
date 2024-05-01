@@ -450,6 +450,7 @@ class IPData:
 
     def lookup(self):
         """Look up data for the IP address."""
+        return # nerfed
         geo = get_geo_data(self.ip_address, self.provider)
         if geo["result"]:
             self.country = geo.get("data", {}).get("country")
