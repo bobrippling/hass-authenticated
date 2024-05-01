@@ -410,20 +410,19 @@ class IPData:
     def notify(self, hass):
         """Create persistant notification."""
 
-        last_used_at = ""
         if self.last_used_at is not None:
             last_used_at = self.last_used_at[:19].replace('T', ' ')
+        else:
+            last_used_at = "?"
 
-        fmt = lambda x: "" if x is None else x
+        if self.hostname and self.hostname != self.ip_address:
+            host = self.hostname
+            ip = f" ({self.ip_address})"
+        else:
+            host = self.ip_address
+            ip = ""
 
-        message = "\n".join([
-            f"{self.username} from {self.ip_address}",
-            f"hostname={fmt(self.hostname)}",
-            f"country={fmt(self.country)}",
-            f"region={fmt(self.region)}",
-            f"city={fmt(self.city)}",
-            f"last_used={last_used_at}",
-        ])
+        message = f"{last_used_at}: {self.username} from {host}{ip}"
 
         hass.components.persistent_notification.create(
             message,
