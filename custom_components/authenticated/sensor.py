@@ -251,7 +251,7 @@ class AuthenticatedSensor(Entity):
                         # Host name is in exclude list
                         pass
                     else:
-                        ipaddress.notify(self.hass)
+                        self.hass.add_job(ipaddress.notify, self.hass)
                 ipaddress.new_ip = False
 
             self.hass.data[PLATFORM_NAME][access] = ipaddress
